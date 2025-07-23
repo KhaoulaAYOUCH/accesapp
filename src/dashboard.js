@@ -3,6 +3,7 @@ import demandesData from "./demandesData";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { Link, useNavigate } from "react-router-dom";
 
 Chart.register(ArcElement, Tooltip, Legend);
 
@@ -89,6 +90,8 @@ function formatDate(dateStr) {
 }
 
 function Dashboard() {
+  const navigate = useNavigate();
+  
   // Get total requests from demandesData
   const totalRequests = Array.isArray(demandesData) ? demandesData.length : 0;
   // Dynamic counts for each status (French values)
@@ -128,7 +131,7 @@ function Dashboard() {
 	// Optionally clear sessionStorage as well
 	if (window.sessionStorage) window.sessionStorage.clear();
 	// Redirect to login
-	window.location.href = '/login';
+	navigate('/login');
   };
 
   return (
@@ -140,7 +143,7 @@ function Dashboard() {
 		  <div style={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
 			<div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center", justifyContent: "center", height: "60vh" }}>
 			  {/* ...existing sidebar buttons... */}
-			  <button className="btn btn-link p-0 sidebar-icon-btn" title="Home" style={{ background: "none" }} onClick={() => window.location.href = '/dashboard'}>
+			  <button className="btn btn-link p-0 sidebar-icon-btn" title="Home" style={{ background: "none" }} onClick={() => navigate('/dashboard')}>
 				<i className="bi bi-house-door-fill fs-4 sidebar-icon"></i>
 			  </button>
 			  <button className="btn btn-link p-0 sidebar-icon-btn" title="Demande d'acces" style={{ background: "none", position: "relative" }} onClick={handleAccessPopup}>
@@ -148,11 +151,11 @@ function Dashboard() {
 				{showAccessPopup && (
 				  <div style={{ position: "absolute", left: "60px", top: "-10px", minWidth: "220px", background: "#fff", boxShadow: "0 4px 16px rgba(0,0,0,0.12)", borderRadius: "10px", zIndex: 100, padding: "16px 0" }}>
 					<ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-					  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/ajouterdemande'}>
+					  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/ajouterdemande')}>
 						<i className="bi bi-person-plus fs-5 me-2" style={{ color: '#1f77b4' }}></i>
 						Ajouter une demande d'acces
 					  </li>
-					  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/listdemandes'}>
+					  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/listdemandes')}>
 						<i className="bi bi-list-check fs-5 me-2" style={{ color: '#ff7f0e' }}></i>
 						Suivi des demandes d'acces
 					  </li>
@@ -168,11 +171,11 @@ function Dashboard() {
 				{showProjectsPopup && (
 				  <div style={{ position: "absolute", left: "60px", top: "-10px", minWidth: "220px", background: "#fff", boxShadow: "0 4px 16px rgba(0,0,0,0.12)", borderRadius: "10px", zIndex: 100, padding: "16px 0" }}>
 					<ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-			  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/ajouterprojet'}>
+			  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/ajouterprojet')}>
 				<i className="bi bi-folder-plus fs-5 me-2" style={{ color: '#1f77b4' }}></i>
 				Ajouter un projet
 			  </li>
-					  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/listprojets'}>
+					  <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/listprojets')}>
 						<i className="bi bi-folder2 fs-5 me-2" style={{ color: '#ff7f0e' }}></i>
 						Mes projets
 					  </li>
@@ -216,12 +219,12 @@ function Dashboard() {
 					  )}
 					  {/* Profile picture next to name, clickable, fallback to icon if not chosen */}
 					  {profileImage ? (
-						<img src={profileImage} alt="Profile" style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover", border: "2px solid #003b8e", cursor: "pointer" }} onClick={() => window.location.href = '/monprofile'} />
+						<img src={profileImage} alt="Profile" style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover", border: "2px solid #003b8e", cursor: "pointer" }} onClick={() => navigate('/monprofile')} />
 					  ) : (
-						<i className="bi bi-person-circle" style={{ fontSize: '2.2rem', color: '#003b8e', marginRight: 10, cursor: 'pointer' }} onClick={() => window.location.href = '/monprofile'}></i>
+						<i className="bi bi-person-circle" style={{ fontSize: '2.2rem', color: '#003b8e', marginRight: 10, cursor: 'pointer' }} onClick={() => navigate('/monprofile')}></i>
 					  )}
 					  <div>
-						<div className="fw-semibold" style={{ cursor: 'pointer', color: 'inherit' }} onClick={() => window.location.href = '/monprofile'}>
+						<div className="fw-semibold" style={{ cursor: 'pointer', color: 'inherit' }} onClick={() => navigate('/monprofile')}>
 						  AYOUCH Khaoula
 						</div>
 						<div className="text-muted small">Field Services Coordinator</div>
@@ -241,7 +244,7 @@ function Dashboard() {
 				  <Col md={7}>
 					<Row className="g-3">
 		  <Col xs={12} sm={6} md={6} lg={3}>
-			<Card className="shadow-sm text-center" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/listdemandes'}>
+			<Card className="shadow-sm text-center" style={{ cursor: 'pointer' }} onClick={() => navigate('/listdemandes')}>
 			  <Card.Body>
 				<i className="bi bi-key fs-2 text-primary mb-2"></i>
 				<div className="fw-semibold mt-2">Totale des autorisations</div>
@@ -250,7 +253,7 @@ function Dashboard() {
 			</Card>
 		  </Col>
 		  <Col xs={12} sm={6} md={6} lg={3}>
-			<Card className="shadow-sm text-center" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/listdemandes?status=en%20attente'}>
+			<Card className="shadow-sm text-center" style={{ cursor: 'pointer' }} onClick={() => navigate('/listdemandes?status=en%20attente')}>
 			  <Card.Body>
 				<i className="bi bi-clock-history fs-2 text-warning mb-2"></i>
 				<div className="fw-semibold mt-2">Approbations en attente</div>
@@ -259,7 +262,7 @@ function Dashboard() {
 			</Card>
 		  </Col>
 		  <Col xs={12} sm={6} md={6} lg={3}>
-			<Card className="shadow-sm text-center" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/listdemandes?status=validé'}>
+			<Card className="shadow-sm text-center" style={{ cursor: 'pointer' }} onClick={() => navigate('/listdemandes?status=validé')}>
 			  <Card.Body>
 				<i className="bi bi-check-circle fs-2 text-success mb-2"></i>
 				<div className="fw-semibold mt-2">Demandes approuvée</div>
@@ -268,7 +271,7 @@ function Dashboard() {
 			</Card>
 		  </Col>
 		  <Col xs={12} sm={6} md={6} lg={3}>
-			<Card className="shadow-sm text-center h-100" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/listdemandes?status=refusé'}>
+			<Card className="shadow-sm text-center h-100" style={{ cursor: 'pointer' }} onClick={() => navigate('/listdemandes?status=refusé')}>
 			  <Card.Body className="d-flex flex-column justify-content-center align-items-center">
 				<i className="bi bi-x-circle fs-2 text-danger mb-2"></i>
 				<div className="fw-semibold mt-2">Demandes rejetée</div>
@@ -290,7 +293,7 @@ function Dashboard() {
 				{/* Projects and Diagram Section */}
 				<Row className="mb-4 g-4">
 				  <Col md={7}>
-<Card className="shadow-sm" style={{ cursor: 'pointer' }} onClick={() => window.location.href = '/listprojets'}>
+<Card className="shadow-sm" style={{ cursor: 'pointer' }} onClick={() => navigate('/listprojets')}>
   <Card.Body>
 	<div className="fw-bold mb-3">Liste des projets</div>
 	<div style={{ width: '100%', overflowX: 'auto' }}>

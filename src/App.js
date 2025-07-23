@@ -14,11 +14,11 @@ import MonProfile from "./monprofile";
 import AjouterProjet from "./AjouterProjet";
 import ListProjet from "./ListProjet";
 import DetailProjet from "./DetailProjet";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -35,7 +35,7 @@ function App() {
         <Route path="/detailprojet/:projectNumber" element={<DetailProjet />} />
         {/* Add more routes as needed */}
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

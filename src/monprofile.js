@@ -1,12 +1,15 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function MonProfile() {
+  const navigate = useNavigate();
+  
   // Logout handler: clear localStorage/session and redirect
   const handleLogout = () => {
     localStorage.clear();
     if (window.sessionStorage) window.sessionStorage.clear();
-    window.location.href = '/login';
+    navigate('/login');
   };
   // Use gender field for avatar icon
   const gender = "female"; // Change to "male" for men

@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Card, Row, Col, Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 
 // Status options as in AjouterProjet
@@ -89,6 +90,7 @@ function getProjects() {
 
 
 function ListProjet() {
+  const navigate = useNavigate();
   const [projects, setProjects] = React.useState(getProjects());
   const [showActive, setShowActive] = React.useState(true);
   const [search, setSearch] = React.useState("");
@@ -136,7 +138,7 @@ function ListProjet() {
 
   // Handle card click to navigate to detail page
   const handleCardClick = (projectNumber) => {
-    window.location.href = `/detailprojet/${projectNumber}`;
+    navigate(`/detailprojet/${projectNumber}`);
   };
 
   return (
@@ -148,7 +150,7 @@ function ListProjet() {
           <div style={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "32px", alignItems: "center", justifyContent: "center", height: "60vh" }}>
               {/* Home */}
-              <button className="btn btn-link p-0 sidebar-icon-btn" title="Accueil" style={{ background: "none" }} onClick={() => window.location.href = '/dashboard'}>
+              <button className="btn btn-link p-0 sidebar-icon-btn" title="Accueil" style={{ background: "none" }} onClick={() => navigate('/dashboard')}>
                 <i className="bi bi-house-door-fill fs-4 sidebar-icon"></i>
               </button>
               {/* Demande d'acces */}
@@ -157,11 +159,11 @@ function ListProjet() {
                 {showAccessPopup && (
                   <div style={{ position: "absolute", left: "60px", top: "-10px", minWidth: "220px", background: "#fff", boxShadow: "0 4px 16px rgba(0,0,0,0.12)", borderRadius: "10px", zIndex: 100, padding: "16px 0" }}>
                     <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/ajouterdemande'}>
+                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/ajouterdemande')}>
                         <i className="bi bi-person-plus fs-5 me-2" style={{ color: '#1f77b4' }}></i>
                         Ajouter une demande d'acces
                       </li>
-                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/listdemandes'}>
+                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/listdemandes')}>
                         <i className="bi bi-list-check fs-5 me-2" style={{ color: '#ff7f0e' }}></i>
                         Suivi des demandes d'acces
                       </li>
@@ -179,11 +181,11 @@ function ListProjet() {
                 {showProjectsPopup && (
                   <div style={{ position: "absolute", left: "60px", top: "-10px", minWidth: "220px", background: "#fff", boxShadow: "0 4px 16px rgba(0,0,0,0.12)", borderRadius: "10px", zIndex: 100, padding: "16px 0" }}>
                     <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/ajouterprojet'}>
+                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", borderBottom: "1px solid #f3f3f3", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/ajouterprojet')}>
                         <i className="bi bi-folder-plus fs-5 me-2" style={{ color: '#1f77b4' }}></i>
                         Ajouter un projet
                       </li>
-                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => window.location.href = '/listprojets'}>
+                      <li style={{ display: "flex", alignItems: "center", padding: "10px 18px", cursor: "pointer", color: "#333", fontSize: "1rem" }} onClick={() => navigate('/listprojets')}>
                         <i className="bi bi-folder2 fs-5 me-2" style={{ color: '#ff7f0e' }}></i>
                         Mes projets
                       </li>
@@ -195,7 +197,7 @@ function ListProjet() {
           </div>
           {/* Logout at the bottom */}
           <div style={{ marginBottom: "12px" }}>
-            <button className="btn btn-link p-0 sidebar-icon-btn" title="Déconnexion" style={{ background: "none" }} onClick={() => window.location.href = '/login'}>
+            <button className="btn btn-link p-0 sidebar-icon-btn" title="Déconnexion" style={{ background: "none" }} onClick={() => navigate('/login')}>
               <i className="bi bi-box-arrow-right fs-3 sidebar-icon"></i>
             </button>
           </div>
@@ -227,12 +229,12 @@ function ListProjet() {
                         </div>
                       )}
                       {profileImage ? (
-                        <img src={profileImage} alt="Profile" style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover", border: "2px solid #003b8e", cursor: "pointer" }} onClick={() => window.location.href = '/monprofile'} />
+                        <img src={profileImage} alt="Profile" style={{ width: 40, height: 40, borderRadius: "50%", objectFit: "cover", border: "2px solid #003b8e", cursor: "pointer" }} onClick={() => navigate('/monprofile')} />
                       ) : (
-                        <i className="bi bi-person-circle" style={{ fontSize: '2.2rem', color: '#003b8e', marginRight: 10, cursor: 'pointer' }} onClick={() => window.location.href = '/monprofile'}></i>
+                        <i className="bi bi-person-circle" style={{ fontSize: '2.2rem', color: '#003b8e', marginRight: 10, cursor: 'pointer' }} onClick={() => navigate('/monprofile')}></i>
                       )}
                       <div>
-                        <div className="fw-semibold" style={{ cursor: 'pointer', color: 'inherit' }} onClick={() => window.location.href = '/monprofile'}>AYOUCH Khaoula</div>
+                        <div className="fw-semibold" style={{ cursor: 'pointer', color: 'inherit' }} onClick={() => navigate('/monprofile')}>AYOUCH Khaoula</div>
                         <div className="text-muted small">Field Services Coordinator</div>
                       </div>
                     </div>
