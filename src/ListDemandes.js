@@ -238,64 +238,76 @@ function ListDemandes() {
                 </div>
                 {/* Requests Table */}
                 <div className="mt-4">
-                  <table style={{ width: '100%', background: '#fff', borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,59,142,0.08)', overflow: 'hidden', borderCollapse: 'separate', borderSpacing: 0 }}>
-                    <thead>
-                      <tr style={{ background: '#f7f9fc', borderBottom: '2px solid #e0e7ff' }}>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Code</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Nom complet</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>CIN / Passeport</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Société</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Demandeur</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Type d'accès</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Statut</th>
-                        <th style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none' }}>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredDemandes.length === 0 ? (
-                        <tr>
-                          <td colSpan={7} style={{ textAlign: 'center', padding: '32px', color: '#888', fontSize: '1.08rem' }}>Aucune demande trouvée.</td>
+                  <div className="table-responsive" style={{ borderRadius: '16px', boxShadow: '0 4px 24px rgba(0,59,142,0.08)', overflow: 'hidden' }}>
+                    <table className="table table-hover mb-0" style={{ background: '#fff', borderCollapse: 'separate', borderSpacing: 0 }}>
+                      <thead>
+                        <tr style={{ background: '#f7f9fc', borderBottom: '2px solid #e0e7ff' }}>
+                          <th scope="col" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '100px' }}>Code</th>
+                          <th scope="col" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '180px' }}>Nom complet</th>
+                          <th scope="col" className="d-none d-md-table-cell" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '140px' }}>CIN / Passeport</th>
+                          <th scope="col" className="d-none d-lg-table-cell" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '120px' }}>Société</th>
+                          <th scope="col" className="d-none d-xl-table-cell" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '140px' }}>Demandeur</th>
+                          <th scope="col" className="d-none d-lg-table-cell" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '120px' }}>Type d'accès</th>
+                          <th scope="col" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', minWidth: '120px' }}>Statut</th>
+                          <th scope="col" style={{ padding: '16px 12px', color: '#222', fontWeight: 700, fontSize: '1.08rem', border: 'none', textAlign: 'center', minWidth: '80px' }}>Action</th>
                         </tr>
-                      ) : (
-                        filteredDemandes.map((d, idx) => (
-                          <tr key={d.code} style={{ borderBottom: '1px solid #f3f3f3' }}>
-                            <td style={{ fontWeight: 700, padding: '14px 12px', color: '#222' }}>{d.code}</td>
-                            <td style={{ fontWeight: 500, padding: '14px 12px', color: '#222' }}>{d.nom} {d.prenom}</td>
-                            <td style={{ fontWeight: 500, padding: '14px 12px', color: '#222' }}>{d.cin}</td>
-                            <td style={{ fontWeight: 500, padding: '14px 12px', color: '#222' }}>{d.societe}</td>
-                            <td style={{ fontWeight: 500, padding: '14px 12px', color: '#222' }}>{d.demandeur}</td>
-                            <td style={{ fontWeight: 500, padding: '14px 12px', color: '#222' }}>{d.typeAcces}</td>
-                            <td style={{ padding: '14px 12px' }}>
-                              {d.statut === 'Validé' ? (
-                                <span style={{ background: '#22c55e', color: '#fff', fontWeight: 600, fontSize: '1rem', padding: '6px 18px', borderRadius: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                                  <i className="bi bi-check-circle-fill" style={{ fontSize: '1.1em', color: '#fff', verticalAlign: 'middle' }}></i>
-                                  Validé
-                                </span>
-                              ) : d.statut === 'En attente' ? (
-                                <span style={{ background: '#fde047', color: '#003b8e', fontWeight: 600, fontSize: '1rem', padding: '6px 18px', borderRadius: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" fill="none" stroke="#003b8e" strokeWidth="2" viewBox="0 0 24 24" style={{ verticalAlign: 'middle' }}>
-                                    <circle cx="12" cy="12" r="9"/>
-                                    <path d="M12 7v5l3 3"/>
-                                  </svg>
-                                  En attente
-                                </span>
-                              ) : (
-                                <span style={{ background: '#ef4444', color: '#fff', fontWeight: 600, fontSize: '1rem', padding: '6px 18px', borderRadius: '18px', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
-                                  <i className="bi bi-x-circle-fill" style={{ fontSize: '1.1em', color: '#fff', verticalAlign: 'middle' }}></i>
-                                  Refusé
-                                </span>
-                              )}
-                            </td>
-                            <td className="text-center align-middle" style={{ padding: '14px 12px' }}>
-                              <button className="btn btn-sm" title="Voir" style={{ background: 'transparent', border: 'none', color: '#003b8e', padding: '4px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => navigate(`/detaildemandes/${d.code}`)}>
-                                <i className="bi bi-eye" style={{ fontSize: '1.25rem', color: '#003b8e' }}></i>
-                              </button>
-                            </td>
+                      </thead>
+                      <tbody>
+                        {filteredDemandes.length === 0 ? (
+                          <tr>
+                            <td colSpan={8} style={{ textAlign: 'center', padding: '32px', color: '#888', fontSize: '1.08rem' }}>Aucune demande trouvée.</td>
                           </tr>
-                        ))
-                      )}
-                    </tbody>
-                  </table>
+                        ) : (
+                          filteredDemandes.map((d, idx) => (
+                            <tr key={d.code} style={{ borderBottom: '1px solid #f3f3f3' }}>
+                              <td style={{ fontWeight: 700, padding: '14px 12px', color: '#222', fontSize: '0.95rem' }}>{d.code}</td>
+                              <td style={{ fontWeight: 500, padding: '14px 12px', color: '#222', fontSize: '0.95rem' }}>
+                                <div>{d.nom} {d.prenom}</div>
+                                <div className="d-md-none text-muted small mt-1">
+                                  {d.cin} • {d.societe}
+                                </div>
+                                <div className="d-md-none mt-2">
+                                  <button className="btn btn-link p-0" style={{ color: '#003b8e', fontSize: '1rem' }} onClick={() => navigate(`/detaildemandes/${d.code}`)}>
+                                    <i className="bi bi-eye"></i> <span style={{ fontSize: '0.9rem' }}>Consulter</span>
+                                  </button>
+                                </div>
+                              </td>
+                              <td className="d-none d-md-table-cell" style={{ fontWeight: 500, padding: '14px 12px', color: '#222', fontSize: '0.95rem' }}>{d.cin}</td>
+                              <td className="d-none d-lg-table-cell" style={{ fontWeight: 500, padding: '14px 12px', color: '#222', fontSize: '0.95rem' }}>{d.societe}</td>
+                              <td className="d-none d-xl-table-cell" style={{ fontWeight: 500, padding: '14px 12px', color: '#222', fontSize: '0.95rem' }}>{d.demandeur}</td>
+                              <td className="d-none d-lg-table-cell" style={{ fontWeight: 500, padding: '14px 12px', color: '#222', fontSize: '0.95rem' }}>{d.typeAcces}</td>
+                              <td style={{ padding: '14px 12px' }}>
+                                {d.statut === 'Validé' ? (
+                                  <span style={{ background: '#22c55e', color: '#fff', fontWeight: 600, fontSize: '0.85rem', padding: '4px 12px', borderRadius: '18px', display: 'inline-flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                    <i className="bi bi-check-circle-fill" style={{ fontSize: '1em', color: '#fff', verticalAlign: 'middle' }}></i>
+                                    <span className="d-none d-sm-inline">Validé</span>
+                                  </span>
+                                ) : d.statut === 'En attente' ? (
+                                  <span style={{ background: '#fde047', color: '#003b8e', fontWeight: 600, fontSize: '0.85rem', padding: '4px 12px', borderRadius: '18px', display: 'inline-flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none" stroke="#003b8e" strokeWidth="2" viewBox="0 0 24 24" style={{ verticalAlign: 'middle' }}>
+                                      <circle cx="12" cy="12" r="9"/>
+                                      <path d="M12 7v5l3 3"/>
+                                    </svg>
+                                    <span className="d-none d-sm-inline">En attente</span>
+                                  </span>
+                                ) : (
+                                  <span style={{ background: '#ef4444', color: '#fff', fontWeight: 600, fontSize: '0.85rem', padding: '4px 12px', borderRadius: '18px', display: 'inline-flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                    <i className="bi bi-x-circle-fill" style={{ fontSize: '1em', color: '#fff', verticalAlign: 'middle' }}></i>
+                                    <span className="d-none d-sm-inline">Refusé</span>
+                                  </span>
+                                )}
+                              </td>
+                              <td className="text-center align-middle d-none d-md-table-cell" style={{ padding: '14px 12px' }}>
+                                <button className="btn btn-sm" title="Voir" style={{ background: 'transparent', border: 'none', color: '#003b8e', padding: '4px 10px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }} onClick={() => navigate(`/detaildemandes/${d.code}`)}>
+                                  <i className="bi bi-eye" style={{ fontSize: '1.25rem', color: '#003b8e' }}></i>
+                                </button>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </Col>
             </Row>
